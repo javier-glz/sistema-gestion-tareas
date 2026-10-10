@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -32,12 +32,19 @@ h1 {
 
 .form-group {
   margin-bottom: 15px;
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
 }
 
 label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 14px;
 }
 
 input, textarea, select {
@@ -55,6 +62,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  width: 100%;
 }
 
 button:hover {
@@ -63,13 +71,65 @@ button:hover {
 
 .task-card {
   border-left: 5px solid #3498db;
-  padding: 12px;
-  margin-bottom: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
   background: #fafafa;
   border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-info h3 {
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.task-info p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.task-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.badge.baja { background-color: #27ae60; }
+.badge.media { background-color: #f39c12; }
+.badge.alta { background-color: #e74c3c; }
+
+.badge.pendiente { background-color: #95a5a6; }
+.badge.en-proceso { background-color: #2980b9; }
+.badge.terminada { background-color: #16a085; }
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  padding: 5px 10px;
+  font-size: 14px;
+  width: auto;
+}
+
+.btn-delete:hover {
+  background-color: c0392b;
 }
 
 .empty-msg {
   color: #777;
   font-style: italic;
+  text-align: center;
 }
