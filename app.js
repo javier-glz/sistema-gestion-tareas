@@ -1,21 +1,20 @@
-// Arreglo global para almacenar las tareas
 let tasks = [];
 
-// Elementos del DOM
 const taskForm = document.getElementById('task-form');
 const taskList = document.getElementById('task-list');
+const filterStatus = document.getElementById('filter-status');
+const filterAssignee = document.getElementById('filter-assignee');
 
-// Escuchar el evento de envío del formulario
 taskForm.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const title = document.getElementById('title').value;
-  const description = document.getElementById('description').value;
-
   const newTask = {
     id: Date.now(),
-    title: title,
-    description: description
+    title: document.getElementById('title').value,
+    description: document.getElementById('description').value,
+    assignee: document.getElementById('assignee').value,
+    priority: document.getElementById('priority').value,
+    status: document.getElementById('status').value
   };
 
   tasks.push(newTask);
@@ -23,21 +22,53 @@ taskForm.addEventListener('submit', function (e) {
   taskForm.reset();
 });
 
-// Función para renderizar las tareas
+function deleteTask(id) {
+  tasks = tasks.filter(task => task.id !== id);
+  renderTasks();
+}
+
 function renderTasks() {
-  if (tasks.length === 0) {
-    taskList.innerHTML = '<p class="empty-msg">No hay tareas registradas.</p>';
+  const selectedStatus = filterStatus.value;
+  const searchAssignee = filterAssignee.value.toLowerCase();
+
+  let filteredTasks = tasks.filter(task => {
+    const matchesStatus = selectedStatus === 'Todos' || task.status === selectedStatus;
+    const matchesAssignee = task.assignee.toLowerCase().includes(searchAssignee);
+    return matchesStatus && matchesAssignee;
+  });
+
+  if (filteredTasks.length === 0) {
+    taskList.innerHTML = '<p class="empty-msg">No se encontraron tareas con los filtros seleccionados.</p>';
     return;
   }
 
   taskList.innerHTML = '';
-  tasks.forEach(task => {
+  filteredTasks.forEach(task => {
     const card = document.createElement('div');
     card.className = 'task-card';
+
+    // Formatear clases CSS para las insignias
+    const priorityClass = task.priority.toLowerCase();
+    const statusClass = task.status.toLowerCase().replace(' ', '-');
+
     card.innerHTML = `
-      <h3>${task.title}</h3>
-      <p>${task.description || 'Sin descripción'}</p>
+      <div class="task-info">
+        <h3>${task.title}</h3>
+        <p>${task.description || 'Sin descripción'}</p>
+        <div class="task-meta">
+          <span>👤 <strong>${task.assignee}</strong></span>
+          <span class="badge ${priorityClass}">Prioridad: ${task.priority}</span>
+          <span class="badge ${statusClass}">${task.status}</span>
+        </div>
+      </div>
+      <div class="task-actions">
+        <button class="btn-delete" onclick="deleteTask(${task.id})">Eliminar</button>
+      </div>
     `;
     taskList.appendChild(card);
   });
 }
+
+// Eventos para los filtros
+filterStatus.addEventListener('change', renderTasks);
+filterAssignee.addEventListener('input', renderTasks);
