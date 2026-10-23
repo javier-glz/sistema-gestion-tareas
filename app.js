@@ -1,4 +1,4 @@
-// Actualización final: Módulo de modificación de tareas verificado y listo para producciónlet tasks = [];
+let tasks = [];
 let editingTaskId = null; // Variable para controlar si estamos editando una tarea
 
 const taskForm = document.getElementById('task-form');
@@ -45,7 +45,6 @@ taskForm.addEventListener('submit', function (e) {
 
 function deleteTask(id) {
   tasks = tasks.filter(task => task.id !== id);
-  // Si estabamos editando la tarea que se eliminó, limpiamos el formulario
   if (editingTaskId === id) {
     editingTaskId = null;
     formSubmitBtn.textContent = 'Agregar Tarea';
@@ -58,7 +57,6 @@ function editTask(id) {
   const taskToEdit = tasks.find(task => task.id === id);
   if (!taskToEdit) return;
 
-  // Rellenar el formulario con los datos de la tarea
   document.getElementById('title').value = taskToEdit.title;
   document.getElementById('description').value = taskToEdit.description;
   document.getElementById('assignee').value = taskToEdit.assignee;
@@ -66,9 +64,8 @@ function editTask(id) {
   document.getElementById('status').value = taskToEdit.status;
 
   editingTaskId = id;
-    formSubmitBtn.textContent = 'Actualizar Tarea';
+  formSubmitBtn.textContent = 'Actualizar Tarea';
   
-  // Desplazar la vista hacia arriba para ver el formulario
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
