@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión de Tareas - TaskFlow</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>TaskFlow - Gestión de Tareas</h1>
+
+    <!-- Formulario para Registrar Tarea -->
+    <section class="card">
+      <h2>Registrar Nueva Tarea</h2>
+      <form id="task-form">
+        <div class="form-group">
+          <label for="title">Título de la tarea:</label>
+          <input type="text" id="title" required placeholder="Ej. Diseñar base de datos">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Descripción:</label>
+          <textarea id="description" rows="2" placeholder="Detalles de la tarea..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="assignee">Asignado a:</label>
+            <input type="text" id="assignee" required placeholder="Nombre del integrante">
+          </div>
+
+          <div class="form-group">
+            <label for="priority">Prioridad:</label>
+            <select id="priority">
+              <option value="Baja">Baja</option>
+              <option value="Media" selected>Media</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Estado:</label>
+            <select id="status">
+              <option value="Pendiente" selected>Pendiente</option>
+              <option value="En proceso">En proceso</option>
+              <option value="Terminada">Terminada</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="form-submit-btn">Agregar Tarea</button>
+      </form>
+    </section>
+
+    <!-- Sección de Filtros -->
+    <section class="card filters-card">
+      <h2>Filtrar Tareas</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="filter-status">Filtrar por Estado:</label>
+          <select id="filter-status">
+            <option value="Todos">Todos</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="En proceso">En proceso</option>
+            <option value="Terminada">Terminada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="filter-assignee">Filtrar por Responsable:</label>
+          <input type="text" id="filter-assignee" placeholder="Escribe un nombre...">
+        </div>
+      </div>
+    </section>
+
+    <!-- Listado de Tareas -->
+    <section class="card">
+      <h2>Lista de Tareas</h2>
+      <div id="task-list" class="task-list">
+        <p class="empty-msg">No hay tareas registradas.</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
